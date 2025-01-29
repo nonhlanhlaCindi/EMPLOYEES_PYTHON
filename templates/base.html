@@ -1,22 +1,42 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Employee Management System</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
     <header>
-        <h1>Employee Management System</h1>
+        
         <nav>
-            <a href="{{ url_for('index') }}">Home</a>
-            <a href="{{ url_for('add_employee') }}">Add Employee</a>
-            <a href="{{ url_for('view_employees') }}">View Employees</a>
+            <!-- Hamburger Icon -->
+       <div class="hamburger" onclick="toggleMenu()">
+           ☰
+       </div>
+            
+            <div class="navlinks">
+                <a href="{{ url_for('index') }}">Home</a>
+                <a href="{{ url_for('add_employee') }}">Add Employee</a>
+                <a href="{{ url_for('view_employees') }}">View Employees</a>
+            </div>
+            <div class="logo">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACoCAMAAABt9SM9AAABblBMVEX////+/v4WRXlFuaY4tqJzw55twZ0ANnERQ3hov5yp2tBkfJ0FP3YAOXKs29I4t6y84tsjS3y5w9Geqr709vgAO3Qus57P6uTD5t/c4OixvMzIz9oDmqxHuaIAMG1rgJ+TkZQDjaUltrNcv63Ix8jl5eUEhZ8DepkAb5EDpbQYsbU9uKmKz8KqqauEgoXU09TCwcIEiaIJqbQUrrUALGxSuZLb29sCk6h0dMYAa44AY4lAQbcEfptDS79GVsfX6+1CcuTi6/sAIGZRu51Vb5NCYYuMm7Ka0reamZsnMbje3vCzs92OjcxjYb05Na7J2+KUuMd4pbhdlq2mpdbLzOo0P71ZW8GmzdWfp+BfcNI9TsZEXM+h0de8xu7Q6+0uXtt6yM1jkfE1de2qw/kdcfF8o/XN3PqaufR5yboAGGSOzbBLZ5Bovpam2MB9y71CtpFzcXR/fsolJKudvct0j+VOdeJQu8GFxM2Lr/NJhvQ95h1PAAARiUlEQVR4nO2ci18TxxbHZyQ8y8uyJKCAgSSAQkh8JIiAAUXkYfHRUhGktIhII0h7b629//2dmZ3HmdldyGM3JGnO56PZzPt8M+c3ZzcAQsEaDnj8yk6G+RSYz4WxKFEvtMz+DzRC/II1xxi04W+05atuGKl/YmKs2tkjYjgI6IiQNgBcE1wxlgtRS0MYrtpYk5fTigsDxVZWICwMZsC1CwuDbmrdl8DCWO4rYBg5+iE5s7mzkHJfoYSrhx7qPkMHVZlgL0d0awTWpRVqqwLdwAsCy+f/6bW6046VBmqBT3BlkwVg9QWrVM3idbWoWbBbsZrVgFUwrICtvsIwYKsvWG4HpOspeknqAILU5QwPKnXAWiGYFqtucmVmNXDFy2ljwkZSWoRmNW53CoOFGgJfXVZfsBphWEQYNgS+MFi48dRBDOHltGOlgVrgE1zZZAFYfcFq3EgXpVkNWAXDCtjqKwwDtvqC5XZAup6il6QOIEhdzvCgUgesFYJpseomV2ZWA1e8nDYmbCSlRWhW43anMFioIfDVZfUFqxGGRYRhQ+ALg4UbTx3EEF5OO1YaqAU+wZVNFoDVF6zGjXRRmtWAVTCsgK2+wjBgqy9Ybgek6yl6SeoAgtTlDA8qdcBaIZgWq25yZWY1cMXLaWPCRlJahGY1bncKg4UaAl9dVl+wGmFYRBgGKvDYcKM6YJUj8IZh5OiH5MzmzgLuw9TBMZRRar5VRUWmDnqhI2MRTI21aK4YtbrTFy3cP9vYfPHD4tYPwN2Xr16/efP61UsrqCkrLJA+mbX5cH19a2t+fn7rR16Uez03NzdJbG7u0ZuXQU1cCYEvSbN4naFZpOinh1tb2/O2rW+yVtabyQlmk8weLeSAZ1cr8MVqlo+wENpcXJ+fX1ycn99eX1+ff8jKXi5QmwC8Hr2qTVi+2ubi9iIxQurnF/sblj3R24VxYgAYjcbX/k5sWy1p1sY7jurhplRxjN6Oj94lNs6JcV6B0KqAZjkLSkgdiO1sPya2vbuzDIfL3R2lJnhJXHNvwQJKTh2wVghWhVU3KR9mNXClwNTBp6QUWe92Card3U2MoDqgoVlqAhiIx0nLzedqT0rlh3ApLOPjALDQ8R613R2xALH+97NDQw5eDNjE66uC5XSlAFjIP4HfP6Cs3i07Km4PMZt1ATbpe3paGwK/f7C0t3ew46z4Zeg2x8X3l+BFab3yexkVEPiywxB9OFhaWjrYl2qpNvyvt22DvEYFr1FxPNRMGPog8PuM1YZcBfDzzp379+958Rq3xMS1I/CGYeTod3HqsHFEWC0tw+Nd1P4yNnaH8boHeQlg4znouxyPLR4VljrohVpCA7qBF0FLuWLU6k6bE5Zr1iFBdeiUdmrTY9TuUGAuvO76fUdd/QL/G4F1dOxe19PTMyZ4OfbX0Ohb914lWyUEviTNEnUfjg4Pjz4AoQSalethNgb2F9Sv2Zdi4qsT+GI1qxxYaJmy+ihXpMOa7hE25ohHAmxWaFbNwCrTPhwS8xolNDXV0+MEJg7IIb+z0mrXrGWysTwEC3WEmpqmpgCwsTEBjPG65/diKqBZzoIiUge0/OmYl8DUgb5a4SZqUxovuL/ey1lg6oBF6gAmUYMaC9XLjHcw0ERCIiYxXCkwdSgzKQU+mpoVG6YmgTl43b8gCi/aI4XvHxM3WKwYqGiBR3qhT1+yTg8L89hfv7IRcgPUcuqSWK8Fi4lFpk9isZNuSy7re2jopri6wVok+laePVtZvck8vMnLb9hNIUTlSgGwzATYV+t4OgzMJSDHbNc7wqFQKNwrL6mFB2Axwidhon5NpKBXjP6kVVkb+u4Bv3wySOpWR/o729o6+0c+0xlWRuxy1qMzMHfLsunzpxotG5iNywbGHe9gHNib7lCTbaEB+5rDiYnyprCg1XpNWtt1dKuTX48QWLdGRE3ndbIXvqN1rYOsB2langUQhnQvPOXmACZ4TaNCYfWygyLEKkN8md6wBh/Qi1ZGrGvVHVbJYRiAwKOBDMFEtlZ7zMnLjsewYOWEFQqHwxqsGCu17JIBe87fR0ZsQP0jDzo5rNaRkd8H0Wo/vbyJGMdnrrDKEXjHVisidcBWJGfpvVCk5Txznu/O2e+tSIcDWCjcLaczYYW6rRwZEsBiCGMowko67F6DiQSj0t+XSCRsWK03E4lBjFbYtYU+txE4rQXsLHk34Oa0SaYMG8hnqLV05GSR1dFOSjrAV2EU34mmYOGYau+EZcsSuA5zWPQ1JHck6uuiFG7QSwaL6hWxZxRSv2VDe2D5q1mlW6Ql025bJtP+/Kx3oPssT0llzkAj/mnkzmhYUmDh4S8ROIqfsOhk14OEVfKN9IBAxXlRe0ouWiytr5wn0n02PT3dHRGD4AtgYXhtwuKdGawux85yhdV1Y7DLPQwr8tTBYKWgnUm1V6vSqV0C60t3R4cnrCZvWJ2rfX19Ctbnka6urt8TNqxrXa3X/IBVolmn7qw6QJtIvuW0PT9wsTI6T0OSjFoXweJmhuG1zv6uLgXrRh81vrNUlnEllm9vaWlx3VfSnp+yJpn8hZ+IW55VGixKQ8ES5iusklIHsrFaWhgKDdhpHnR8ftrczJqwUpAA6tP5B6uts7PTC1Zbp0cYVuCpA+q1YbUY2wsrrBHCyobVnhkwYV2gWU2xk5PYhbA8NKvt88rKigcsUtfmT1KKkV5YwO2OHWKKl02MQpGLyTdLWO35ImCF7EGKhzWSYOUC1q1nxK67pw4VfuqQbzGMMmmGLZoBrMwF01yaZzlSB26X5Vn9bW1t1ZGU5nmQabwGQAPsG6wqS0r5a3FhyFBovDJSLel/BqzCw9ATVqigpPQzhDWCq+CpAzpraeamNlZewSIvzyGs3GWwOnKRCAdEL3Pg2nEj7QGr6/vBwZeD/KbavpG+1lkNTx3ss86GJYC1d4MuGJ6GVPkvTh1IJhoOg0c0MXCNTlg6YXUA+afmSB26WlsfrKI++xFNwj4Eq+OpQ75ZWQsl1nJqfP9wZudZ4jj0sg6ZXKk8qymmrkMYPvxrUgt2S0r7V/nDv/4u9oSrz+cnpSWa2lo8GE/PzCZnpzINy3h/kXM5LHSiHiuDM8QDFroln6J2kY1VFU8d2MbRdheSh4C4kY6cnZ6y5xHtmedIjO3QrLBtoTC7tL+wiMkvL8JhMv2XMA/KAaQG6KPfUjxhsOQXFiQMEVp9Yn9h8eAWbbfywPmFRaWfOmD7QFSsLCcsblZvcyYT8YJFJJwbsiLqWhXTdrmOk1hsuhfDzoM3qdFMlF9SYydiou8W/SpskHlo11nIri8TVukG9tap580yPw/az3NlzVX7Zj1vpiJ+epqPeLYRn87zc+82vlngH0dJqYN8uBfpPeuNWEjlLih31tx+Ip/BY7GF0dl5t/uE2KXMdZWujS7sifVr9SSyok8ddFFCQKbOMpmnT4dD4itU0Cp/HhtALiakLpVKEQHCKVKUpVdW1oqTsjhGVoo0yooZrVRWvrDWpIroVCJBGqeyFq1MpSxaQsYl9Yl4QnqB5WLF4irw1EGywry5gJXPtNPvJaZ67ryHQzCjFdO9kchAb+/7t7/A739Y35l4PBlF1gzC0WQ8mUTWGo7HSSFG6T+Iu1HeITETT89YKB0lLxjN0CJaFU8nSKd4NkE6zqTjMykU/4NgjqL0Gh1Mg1Xppw4eRh/MUyY9PfeH1E9xcIucPx0eDoV6esbu3B6aHf1m5F7U73QcR1EyTq6SlrXGC1E0m1SwkmTrpBIWrUglISzynvwjsKIJ1jGeXKOw2LBVebbQBJSwauoZuzf7jZXAZcYIrKYpBovQujuh//wt9SqRxMQ98hlaGFNY2C6kRWpnJVOYsaG1Gqy4DYuVJRPxFGkYRamZdNY3/8oMQ4SWeQEpsvjGmuoZuz07C4awL3oVrCGytcYnX/FZ7TAkVwJWYm0mxWFhlEymoykJi/AgYegKKyVgkeEoLDRDdhYRNxLdPoVhuQL/53+2lgWsCIM1TCVraHbcAcvSYd1dmHuJICyyH+heSFLVTlNYmO2smUQ2FVVhSF6zaUoBZfkuWkvQADbCEBNY2egaonqVTPgm8IYVkzogtPGf+a2f+eAol5FRODQ6zqdQY2EtDAmsiUkxNnUvnV6j6kwFOpsmOytqhyHbRNFENJlOUwqpmVSK4EivZeNE50mntJWNZlMzlgxDcgSkonGGLzlD9mU2HsV6LlDppw7CNtYXF+UfJEAZGYVDd984J6Bf32uw5v6rKhPZLHEYMyDprGWxK/IvQbeUZZHqrP1zffE0fU2kiXQhUkgSh0Q6bjci/2jSEadYLT5aljWsDnuxvbi4vsHfnGV44nB7dsH+XRMPWEyzyM5aqPRyy7OSb6RFk8f0d8gt3iYjo9DYWCIMh6FmTUzMgftvxEfGbEna3bj21BCrf9oDSbBisVaxbuwp8BV66sCnRRu7jx8v/syHyWXEWYjhEErgbVj3aBiOj09MzuVqClb5tr+793j3HX9jfQmHSBR+M5Zv1+maRcPwUQ75aFWjTRfYzsHe3uN38oOn3zdIg+tXp+E9cRrO+fobKYHDKjN1YBcfD/hvk2uZgqyWBTH6I6UKFgnDCRVVsgO2u2HV2Wyk1qXfz5uPFUCgiVFhNXClwNShzB/AxZzW0tLewU98PUBudDXppj+AS39jQMJ6bfpcCc0qJymVH8KlsIyPQ8xFrv9hvya9oxbgCgtzWHJnUcm6WoEv7nbHJ/tEae19dfyCmD5Bd5iKloQ16fMfpKkFgWd2fER/V/rgr2W92Fj/dBjsrIU3Pq+hAgLvRxiS/5d/47iOkdJSIwwxoSVhLci8tWbC0AeBF6v+cERxHR58/SS3l+ELaRWhsO4PDY3OvpVNakjgDcPI0Q/Jmc2dhYQX7L318ejw0Ob1z/4yGNna2FR/IyMy/ffff3+Tf6ZA9hbjYTFqAamDXqgnNKobeBG0lCtGre60OaGvtvzxSPA6WPr614udnZ0Xf757vL29LW+2A7SaEXhhy58OOS96PNrG/gjZj5f3LdcqIfAlaRavU5olDwF8/A/gxZE93t4A0gOj6moFvljN8hsWteMPH/93RO3w6IDY1792pGbVMqzgzFo+Pj7e3z8+Xg7wj95qVnOadZVWAc1yFpSSOoAgdTnDQTeXDKD01AFrhWBarLrJlZnVwJUCUwffklKlWUBudDWpEs0qJymVH8KlsIyPo1ZhOV0pABYKVuDh3JWxik4WgNUXrEYYFhGGDYEvDBb29amDljogUO0Cy5gPlBWZOuiFjoxFMNXcMlwxanWnHSsN1AKf4MomC8DqC1YAN9LVrlmwW7Ga1YBVMKyArb7CMGCrL1huB6TrKXpJ6gCC1OUMDyp1wFohmBarbnJlZjVwxctpY8JGUlqEZjVudwqDhRoCX11WX7CCDUPxDtdHGAYr8MrbKoJVjsAbhpGjH5IzmztLpQ5ISx3gaMBF31MHvdCRsQimmluGK0at7rRjpYGaC7ZKTFaTZoZjwLMFP0FpmsXrLtYsY19p4nF1mgW7FatZfsBSC/OEhbGEhTQQNQQrUIOnokOf/Z+75jQLe71znC81CMvtgHQ9RS9JHUCQwjNcmwe77SesN/sXP3VQQiMayUFAiwprFgbdihZ4pBcG8tRBDiSPhKuD5XSlAFgocIF3mPxoA8nAKu2N31bR9VdA4IMOQyM9MzULDlftYXjVj5WlU8oP6GMQsMoReMMwcvSDHuk7S6UOYAPB1UMPdZ+NOU13kSZrxlZU69IKtVWBbuAFgeXz//Ra3WmPVQZk+gSFq3pJCwvcm4CtgPW7NynF8Qp89KVpFq8rU7MwQhiDqFYC71CyYAS+WM26SljQZ4zViP/Gpw7FRQYuRtTKnawarVhYFZvMnwm8TtFLUgcQpGCDFJA6wJBEPJnhmQN2bwQWqu9EMC1W3eTKzGrgipfTxoRXnZQaPkuBD1CzMOhWtMAjvTCQpw7VBMvpSgGwUJUJfNVP9n/63U+FmQ+zNwAAAABJRU5ErkJggg==" alt="">
+            </div>
         </nav>
     </header>
     <main>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
         {% block content %}{% endblock %}
     </main>
+
+    <script src="../static/JS/java.js"></script>
 </body>
 </html>
