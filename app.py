@@ -3,12 +3,12 @@ from database import get_db_connection
 
 app = Flask(__name__)
 
-# Home Route
+
 @app.route('/')
 def index():
     return render_template('index.html')
 
-# Add Employee Route
+
 @app.route('/add', methods=['GET', 'POST'])
 def add_employee():
     if request.method == 'POST':
@@ -31,7 +31,7 @@ def add_employee():
         return redirect(url_for('view_employees'))
     return render_template('add_employee.html')
 
-# View Employees Route
+
 @app.route('/view')
 def view_employees():
     conn = get_db_connection()
@@ -42,7 +42,7 @@ def view_employees():
     conn.close()
     return render_template('view_employees.html', employees=employees)
 
-# Delete Employee Route
+
 @app.route('/delete/<int:id>')
 def delete_employee(id):
     conn = get_db_connection()
@@ -56,7 +56,7 @@ def delete_employee(id):
 
 
 
-# Update Employee Route
+
 @app.route('/update/<int:id>', methods=['GET', 'POST'])
 def update_employee(id):
     conn = get_db_connection()
@@ -86,7 +86,7 @@ def update_employee(id):
     return render_template('update_employee.html', employee=employee)
 
 
-# Run the App
+
 if __name__ == '__main__':
     app.run(debug=True)
   
