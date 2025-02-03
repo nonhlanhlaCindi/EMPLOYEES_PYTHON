@@ -9,7 +9,7 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/add', methods=['GET', 'POST'])
+@app.route('/add', methods=['GET','POST'])
 def add_employee():
     if request.method == 'POST':
         first_name = request.form['first_name']
